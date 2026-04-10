@@ -30,7 +30,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-//                .httpBasic(withDefaults())
+                .oauth2Login(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()

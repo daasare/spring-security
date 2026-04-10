@@ -4,6 +4,7 @@ package com.playground.springSecurity.controller;
 import com.playground.springSecurity.dto.RequestUserInfo;
 import com.playground.springSecurity.dto.RequestUserRegistrationInfo;
 import com.playground.springSecurity.service.UsersService;
+import jakarta.websocket.OnError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
