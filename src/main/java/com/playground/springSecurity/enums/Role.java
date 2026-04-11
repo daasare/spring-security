@@ -2,7 +2,10 @@ package com.playground.springSecurity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,6 +19,11 @@ public enum Role {
 
     Role(Set<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    // convert roles into "GrantedAuthority" which is what spring security understands
+    public List<GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_"+this.name()));
     }
 
 }

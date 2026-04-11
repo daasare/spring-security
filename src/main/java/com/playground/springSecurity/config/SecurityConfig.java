@@ -2,6 +2,7 @@ package com.playground.springSecurity.config;
 
 
 import com.playground.springSecurity.filter.JWTAuthFilter;
+import com.playground.springSecurity.service.AppOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +26,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final JWTAuthFilter jwtAuthFilter;
+    private final AppOauth2UserService appOauth2UserService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(
+                        userInfo -> userInfo.oidcUserService(appOauth2UserService)
+                ))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/test").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users").authenticated()
                                 .anyRequest().authenticated()
                 )

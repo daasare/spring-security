@@ -1,5 +1,6 @@
 package com.playground.springSecurity.entity;
 
+import com.playground.springSecurity.enums.AuthProvider;
 import com.playground.springSecurity.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,11 +16,19 @@ public class Users {
 
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+
+    private String email;
+
     private String password;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
 }
